@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lone Radius · Site screening maps for Texas</title>
+<meta name="description" content="Interactive screening maps of EPA and TCEQ records around any Texas address, with ASTM search distances and elevation worked out. Your first site is free, back in 48 hours.">
+<meta name="theme-color" content="#07090a">
+<meta property="og:title" content="Lone Radius · Know the radius before you price the job">
+<meta property="og:description" content="Screening maps of public EPA and TCEQ records for Texas environmental consultants.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2307090a'/%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%23f2f0e9' stroke-width='1.6'/%3E%3Ccircle cx='16' cy='16' r='6' fill='none' stroke='%23f2f0e9' stroke-width='1.6'/%3E%3Ccircle cx='16' cy='16' r='2.4' fill='%23e6f23c'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,200..700&family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<script>
+(function(){var r=document.documentElement;r.classList.add('js');try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&!sessionStorage.getItem('ug-intro')&&!location.hash&&window.scrollY<10){r.classList.add('intro');setTimeout(function(){r.classList.remove('intro');r.classList.add('go')},7000)}}catch(e){}})();
+</script>
+<style>
+:root{
+  --night:#07090a;--night-2:#101314;--night-3:#181c1d;--on-night:#f2f0e9;--on-night-muted:#a7aaa3;--line-night:#2a2f30;
+  --paper:#f2f0e9;--surface:#fbfaf6;--ink:#0e1011;--ink-2:#2a2d2e;--muted:#585c59;--line:#d6d3c8;
+  --mark:#e6f23c;--mark-ink:#17190a;--err:#b3261e;--err-night:#ffb4ab;
+  --f-display:'Archivo','Helvetica Neue',Arial,system-ui,sans-serif;
+  --f-body:'Geist',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --f-mono:'Geist Mono',ui-monospace,SFMono-Regular,Consolas,monospace;
+  --f-report:'Courier New',Courier,monospace;
+  --ease-out:cubic-bezier(.16,1,.3,1);--ease-io:cubic-bezier(.65,0,.35,1);
+  --gutter:clamp(16px,4.2vw,64px);--maxw:1380px;--nav:68px;--r:6px;--r-lg:16px;--panel:28px;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:84px;background:var(--night)}
+body{margin:0;background:var(--night);color:var(--ink);font:400 1rem/1.6 var(--f-body);-webkit-font-smoothing:antialiased;overflow-x:clip}
+h1,h2,h3,p,ul,ol,figure{margin:0}ul,ol{padding:0;list-style:none}
+a{color:inherit}button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0;touch-action:manipulation}
+:focus-visible{outline:2px solid var(--mark);outline-offset:3px;border-radius:3px}
+.on-paper :focus-visible{outline-color:var(--ink)}
+.skip{position:fixed;left:12px;top:-60px;z-index:100;background:var(--mark);color:var(--mark-ink);padding:10px 16px;border-radius:var(--r);font-weight:500}
+.skip:focus{top:12px}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gutter)}
+.mono{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.09em;text-transform:uppercase}
+.tnum{font-variant-numeric:tabular-nums}
+mark{background:linear-gradient(transparent 12%,var(--mark) 12%,var(--mark) 90%,transparent 90%);color:var(--mark-ink);padding-inline:.12em}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;font-weight:500;text-decoration:none;white-space:nowrap;transition:transform .35s var(--ease-out),background-color .25s,color .25s,border-color .25s}
+.btn svg{width:16px;height:16px;transition:transform .35s var(--ease-out)}
+.btn:hover svg{transform:translateX(4px)}.btn:active{transform:scale(.97)}
+.btn-mark{background:var(--mark);color:var(--mark-ink)}.btn-mark:hover{background:#f1fb62}
+.btn-ghost{border:1px solid #4a4f50;color:var(--on-night)}.btn-ghost:hover{border-color:var(--on-night)}
+.btn-ink{background:var(--ink);color:var(--paper)}.btn-ink:hover{background:#2b2f30}
+
+/* nav */
+.nav{position:fixed;inset:0 0 auto;z-index:40;height:var(--nav);display:flex;align-items:center;transition:background-color .3s,backdrop-filter .3s,border-color .3s;border-bottom:1px solid transparent;color:var(--on-night)}
+.nav.solid{background:rgba(7,9,10,.86);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-color:rgba(255,255,255,.08)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;width:100%;gap:20px}
+.logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font:500 1rem/1 var(--f-display);font-stretch:118%;letter-spacing:.14em;text-transform:uppercase;min-height:44px}
+.logo{white-space:nowrap}.logo svg{width:24px;height:24px}
+.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links a:not(.btn){font-size:.9rem;text-decoration:none;color:#d5d5cd;padding:10px 0;transition:color .2s}
+.nav-links a:not(.btn):hover{color:#fff}
+.nav .btn{min-height:44px;padding:0 20px;font-size:.9rem}
+.burger{display:none;width:44px;height:44px;align-items:center;justify-content:center;color:var(--on-night)}
+.burger svg{width:24px;height:24px}
+.intro:not(.go) .nav{opacity:0}
+.nav{transition:opacity .8s,background-color .3s,border-color .3s}
+
+/* intro paper */
+.paper,.fx{display:none}
+.intro .paper{display:flex;position:fixed;inset:0;z-index:60;background:#d9d6ca;align-items:center;justify-content:center;padding:16px;clip-path:circle(150vmax at var(--cx,50%) var(--cy,50%));color:#1b1b18;font-family:var(--f-report)}
+.intro .fx{display:block;position:fixed;inset:0;width:100%;height:100%;z-index:61;pointer-events:none}
+.paper.collapse{clip-path:circle(0 at var(--cx,50%) var(--cy,50%));transition:clip-path .85s var(--ease-io)}
+.sheet{width:min(100%,880px);background:#f7f5ec;padding:clamp(18px,3.4vw,44px);box-shadow:0 1px 0 #bdb9aa,0 22px 50px -24px rgba(40,36,20,.5);font-size:clamp(.72rem,1.55vw,.95rem);line-height:1.35}
+.sheet h2{font:700 1.3em/1.2 var(--f-report);text-align:center;letter-spacing:.06em;border-block:2px solid #1b1b18;padding:.5em 0;margin:0 0 1em}
+.sheet-meta{display:flex;justify-content:space-between;gap:16px;margin-bottom:1.2em}
+.sheet table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.sheet th{font-weight:700;text-align:right;border-bottom:1.5px solid #1b1b18;padding:.35em .25em;vertical-align:bottom}
+.sheet th:first-child,.sheet td:first-child{text-align:left}
+.sheet td{text-align:right;padding:.42em .25em;border-bottom:1px dotted #a9a596;position:relative;transition:opacity .3s}
+.paper.lift td[data-b]{opacity:.12}
+.sheet tr.hl td:first-child::before{content:"";position:absolute;inset:.12em auto .12em -.2em;width:calc(100% + .4em);background:var(--mark);z-index:0;transform:scaleX(0);transform-origin:left;animation:swipe .4s .45s var(--ease-io) forwards}
+.sheet tr.hl td:first-child span{position:relative;z-index:1}
+.sheet-foot{display:flex;justify-content:space-between;margin-top:1.2em;color:#58564c}
+@keyframes swipe{to{transform:scaleX(1)}}
+
+/* hero */
+.hero{position:relative;min-height:100svh;background:var(--night);color:var(--on-night);overflow:hidden;padding:calc(var(--nav) + 20px) 0 calc(var(--panel) + 44px)}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%}
+.hero-grid{position:relative;display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center;min-height:calc(100svh - var(--nav) - var(--panel) - 64px)}
+.hero-copy{position:relative;z-index:2}
+.eyebrow{display:flex;align-items:center;gap:10px;color:var(--on-night-muted);margin-bottom:22px}
+.eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--mark);flex:none}
+h1{font:400 clamp(2.75rem,6.1vw,5.9rem)/.99 var(--f-display);font-stretch:108%;letter-spacing:-.035em}
+h1 span{display:block}h1 .dim{color:#83877f}
+.lede{max-width:35rem;margin-top:26px;font-size:clamp(1.03rem,1.3vw,1.2rem);line-height:1.55;color:#cfd0c8}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:40px;padding-top:18px;border-top:1px solid var(--line-night);max-width:35rem}
+.stats b{display:block;font:400 clamp(1.7rem,2.6vw,2.4rem)/1.1 var(--f-mono);letter-spacing:-.03em}
+.stats b.hot{color:var(--mark)}
+.stats span{display:block;margin-top:5px;font-size:.84rem;line-height:1.3;color:var(--on-night-muted)}
+.slot{position:relative;z-index:1;width:min(100%,calc(100svh - 150px));aspect-ratio:1;justify-self:center}
+.readout{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:max-content;max-width:100%;padding:8px 14px;border:1px solid var(--line-night);border-radius:999px;background:rgba(7,9,10,.84);font:400 .75rem/1.3 var(--f-mono);color:#dcdcd3;text-align:center}
+.readout b{color:var(--mark);font-weight:500}
+.rvh{transition:opacity .9s var(--ease-out),transform .9s var(--ease-out);transition-delay:calc(var(--i,0)*90ms)}
+.intro:not(.go) .rvh{opacity:0;transform:translateY(20px)}
+
+/* panels */
+.panel{position:relative;z-index:2;background:var(--paper);border-radius:var(--panel) var(--panel) 0 0;margin-top:calc(var(--panel)*-1);overflow:hidden}
+.marquee{display:flex;overflow:hidden;padding:30px 0;border-bottom:1px solid var(--line);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marquee ul{display:flex;flex:none;align-items:center;gap:44px;padding-right:44px;animation:slide 44s linear infinite;font:400 clamp(1.3rem,2.2vw,1.9rem)/1 var(--f-display);font-stretch:118%;letter-spacing:.02em;color:var(--ink-2)}
+.marquee li{display:flex;align-items:center;gap:44px;white-space:nowrap}
+.marquee li::after{content:"";width:26px;height:1px;background:#a9a699}
+@keyframes slide{to{transform:translateX(-100%)}}
+.sec{padding-block:clamp(72px,10vw,150px)}
+.tag{display:flex;align-items:center;gap:14px;color:var(--muted);margin-bottom:26px}
+.tag::after{content:"";width:44px;height:1px;background:currentColor;opacity:.6;order:1}
+.tag b{font-weight:500}.tag span{order:2}
+.night .tag{color:var(--on-night-muted)}
+h2.big{font:400 clamp(2.15rem,4.6vw,4.4rem)/1.03 var(--f-display);font-stretch:106%;letter-spacing:-.03em;max-width:17em;text-wrap:balance}
+h2.big em{font-style:normal;color:#8a8c84}
+.sub{max-width:40rem;margin-top:22px;font-size:1.1rem;color:var(--muted)}
+.night .sub{color:var(--on-night-muted)}
+.night{background:var(--night);color:var(--on-night)}
+
+/* manifesto */
+.manifesto p{font:400 clamp(1.75rem,3.7vw,3.5rem)/1.14 var(--f-display);font-stretch:104%;letter-spacing:-.025em;max-width:21em}
+.manifesto .w{color:#b9b6aa;transition:color .35s}.manifesto .w.on{color:var(--ink)}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin-top:clamp(52px,7vw,96px)}
+.facts li{border-top:1px solid var(--line);padding-top:16px}
+.facts b{display:block;font:400 clamp(1.9rem,3vw,2.8rem)/1.1 var(--f-mono);letter-spacing:-.03em}
+.facts span{display:block;margin-top:6px;font-size:.92rem;line-height:1.35;color:var(--muted)}
+
+/* map explorer */
+.explorer{border-radius:var(--panel);margin-inline:clamp(0px,1.4vw,20px)}
+.ex-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:clamp(28px,4vw,64px);align-items:center;margin-top:clamp(36px,5vw,64px)}
+.seg{display:inline-grid;grid-template-columns:1fr 1fr;padding:4px;border:1px solid var(--line-night);border-radius:999px;margin-bottom:20px;max-width:100%}
+.seg button{min-height:44px;padding:0 18px;border-radius:999px;font-size:.92rem;color:#c8c9c1;transition:background-color .25s,color .25s}
+.seg button[aria-pressed=true]{background:var(--on-night);color:var(--ink)}
+.findings{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:.95rem}
+.findings caption{caption-side:top;text-align:left;color:var(--on-night-muted);padding-bottom:12px}
+.findings th,.findings td{padding:0 6px;height:46px;text-align:right;border-bottom:1px solid var(--line-night);font-family:var(--f-mono);font-weight:400}
+.findings thead th{height:38px;font-size:.75rem;color:var(--on-night-muted);white-space:nowrap}
+.findings thead .s{display:none}
+@media (max-width:640px){.findings thead .l{display:none}.findings thead .s{display:inline}}
+.findings th:first-child{text-align:left;padding-left:0}
+.findings tbody th button{display:flex;align-items:center;width:100%;min-height:45px;text-align:left;font:inherit;color:inherit}
+.findings tbody tr{transition:background-color .2s}
+.findings tbody tr:hover{background:var(--night-3)}
+.findings tbody tr.sel{background:var(--night-3)}
+.findings tbody tr.sel th button{color:var(--mark)}
+.findings td.z{color:#5e6362}
+.findings td.t{color:var(--on-night)}
+.findings tfoot td,.findings tfoot th{border-bottom:0;color:var(--on-night);font-weight:500}
+.ex-stage{position:relative}
+.ex-canvas{position:relative;aspect-ratio:1;width:100%;max-width:620px;margin-inline:auto}
+.ex-canvas canvas{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair;touch-action:pan-y}
+.count{position:absolute;left:0;top:0;pointer-events:none}
+.count b{display:block;font:400 clamp(2.2rem,4vw,3.3rem)/1 var(--f-mono);letter-spacing:-.04em;color:var(--mark)}
+.count span{font-size:.85rem;color:var(--on-night-muted)}
+.ex-read{min-height:3em;margin-top:8px;text-align:center;font:400 .8rem/1.45 var(--f-mono);color:#d6d6cd}
+.legend{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;margin-top:10px;font-size:.84rem;color:var(--on-night-muted)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{border-radius:50%;display:block}
+.legend .a{width:10px;height:10px;background:var(--mark)}.legend .b{width:5px;height:5px;background:#c9c9c0}
+.ex-foot{display:flex;flex-wrap:wrap;gap:14px 28px;align-items:center;justify-content:space-between;margin-top:clamp(32px,4vw,52px);padding-top:20px;border-top:1px solid var(--line-night);color:var(--on-night-muted);font-size:.92rem}
+.tlink{display:inline-flex;align-items:center;gap:8px;min-height:44px;color:var(--on-night);text-underline-offset:4px}
+.tlink svg{width:15px;height:15px}
+
+/* features */
+.feat-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,6vw,96px)}
+.feat-head{position:sticky;top:110px;align-self:start}
+.feat li{display:grid;grid-template-columns:52px minmax(0,1fr);gap:8px;padding:26px 0;border-top:1px solid var(--line)}
+.feat li:last-child{border-bottom:1px solid var(--line)}
+.feat .n{color:var(--muted);padding-top:7px}
+.feat h3{font:400 clamp(1.3rem,2vw,1.75rem)/1.2 var(--f-display);font-stretch:104%;letter-spacing:-.015em}
+.feat p{margin-top:8px;color:var(--muted);max-width:36rem}
+
+/* elevation */
+.elev{border-radius:var(--panel);margin-inline:clamp(0px,1.4vw,20px)}
+.xsec{margin-top:clamp(36px,5vw,60px)}
+.xsec svg{display:block;width:100%;height:auto;overflow:visible}
+.xsec .terrain{fill:none;stroke:var(--on-night);stroke-width:1.5;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.2s var(--ease-io)}
+.xsec.in .terrain{stroke-dashoffset:0}
+.xsec .pin{opacity:0;transition:opacity .7s var(--ease-out) 1.2s}.xsec.in .pin{opacity:1}
+.xsec text{font-family:var(--f-mono);font-size:15px;fill:#d7d7ce}
+@media (max-width:980px){.xsec text{font-size:24px}}
+@media (max-width:640px){.xsec text{font-size:40px}.xsec svg{margin-top:44px}}
+.xsec .hot{fill:var(--mark)}
+.xcap{margin-top:18px;color:var(--on-night-muted);font-size:.95rem;max-width:44rem}
+
+/* fit */
+.fit{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:clamp(36px,5vw,60px)}
+.fit>div{padding:clamp(24px,3vw,40px);border-radius:var(--r-lg);border:1px solid var(--line);background:var(--surface)}
+.fit>div.no{background:transparent}
+.fit h3{font:400 1.45rem/1.2 var(--f-display);font-stretch:104%}
+.fit ul{margin-top:18px}
+.fit li{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--line);color:var(--ink-2)}
+.fit li svg{width:18px;height:18px;flex:none;margin-top:4px}
+
+/* pricing */
+.price-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:clamp(36px,5vw,60px)}
+.plan{display:flex;flex-direction:column;padding:clamp(24px,2.6vw,36px);border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface)}
+.plan.lead{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.plan h3{font:500 .78rem/1.3 var(--f-mono);letter-spacing:.09em;text-transform:uppercase}
+.plan .amt{margin-top:22px;font:400 clamp(2.8rem,4.6vw,4.2rem)/1 var(--f-display);font-stretch:104%;letter-spacing:-.04em}
+.plan .per{margin-top:8px;font-size:.95rem;color:var(--muted)}
+.plan.lead .per{color:#b9bab2}
+.plan ul{margin-top:22px;flex:1}
+.plan li{padding:10px 0;border-top:1px solid var(--line);font-size:.96rem}
+.plan.lead li{border-color:#33383a}
+.plan .btn{margin-top:22px;width:100%}
+.calc{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center;margin-top:18px;padding:clamp(24px,3vw,44px);border:1px solid var(--line);border-radius:var(--r-lg)}
+.calc h3{font:400 1.45rem/1.2 var(--f-display);font-stretch:104%}
+.calc label.r{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:22px;font-weight:500}
+.calc output.n{font:400 1.3rem/1 var(--f-mono)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:44px;background:none;margin:4px 0 0;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:3px;background:linear-gradient(90deg,var(--ink) var(--p,10%),var(--line) var(--p,10%))}
+input[type=range]::-moz-range-track{height:3px;background:var(--line)}
+input[type=range]::-moz-range-progress{height:3px;background:var(--ink)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-11.5px;border-radius:50%;background:var(--ink);border:5px solid var(--mark)}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--ink);border:5px solid var(--mark)}
+.check{display:flex;align-items:center;gap:12px;min-height:44px;cursor:pointer}
+.check input{width:22px;height:22px;accent-color:var(--ink);margin:0}
+.total b{display:block;font:400 clamp(2.8rem,5vw,4.4rem)/1 var(--f-mono);letter-spacing:-.05em}
+.total p{margin-top:10px;color:var(--muted);font-size:.96rem}
+
+/* about */
+.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:clamp(32px,6vw,96px);align-items:start}
+.about .q{font:400 clamp(1.5rem,2.6vw,2.3rem)/1.2 var(--f-display);font-stretch:104%;letter-spacing:-.02em}
+.about p+p{margin-top:18px}
+.about .body{margin-top:24px;color:var(--ink-2);max-width:40rem}
+.sig{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:26px;font-size:.95rem}
+.sig a{display:inline-flex;align-items:center;min-height:44px;text-underline-offset:4px}
+
+/* pilot */
+.pilot{position:relative;z-index:2;background:var(--night);color:var(--on-night)}
+.pilot-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(36px,6vw,96px)}
+.steps{margin-top:34px}
+.steps li{display:grid;grid-template-columns:44px minmax(0,1fr);padding:14px 0;border-top:1px solid var(--line-night);color:#d5d5cd}
+.steps .mono{color:var(--on-night-muted);padding-top:4px}
+form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;padding:clamp(20px,3vw,40px);background:var(--night-2);border:1px solid var(--line-night);border-radius:var(--r-lg)}
+.f{display:flex;flex-direction:column;gap:7px;min-width:0}.f.full{grid-column:1/-1}
+.f label{font-size:.92rem;font-weight:500}.f label small{font-weight:400;color:var(--on-night-muted);font-size:.84rem}
+.f input,.f textarea{width:100%;min-height:50px;padding:12px 14px;background:var(--night);border:1px solid #454b4c;border-radius:var(--r);font-size:1rem;color:var(--on-night);transition:border-color .2s}
+.f textarea{min-height:92px;resize:vertical}
+.f input:focus,.f textarea:focus{border-color:var(--mark);outline:0;box-shadow:0 0 0 1px var(--mark)}
+.f [aria-invalid=true]{border-color:var(--err-night)}
+.help{font-size:.84rem;color:var(--on-night-muted)}
+.error{font-size:.86rem;color:var(--err-night);min-height:0}
+.form-foot{grid-column:1/-1}
+.form-foot .btn{width:100%}
+.form-foot p{margin-top:14px;font-size:.86rem;color:var(--on-night-muted)}
+.sent{grid-column:1/-1;padding:14px 16px;border:1px solid var(--mark);border-radius:var(--r);font-size:.94rem}
+.sent button{min-height:44px;text-decoration:underline;text-underline-offset:3px;color:var(--mark);padding:0}
+footer{background:var(--night);color:var(--on-night-muted);font-size:.88rem;padding:34px 0 44px;border-top:1px solid var(--line-night)}
+.foot{display:flex;flex-wrap:wrap;gap:16px 40px;justify-content:space-between}
+.foot p{max-width:44rem}
+
+/* reveal */
+.js .rv{opacity:0;transform:translateY(24px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out);transition-delay:calc(var(--d,0)*70ms)}
+.js .rv.in{opacity:1;transform:none}
+
+@media (max-width:980px){
+  .nav-links{display:none;position:fixed;inset:var(--nav) 0 auto;flex-direction:column;align-items:stretch;gap:0;background:var(--night);padding:8px var(--gutter) 22px;border-bottom:1px solid var(--line-night)}
+  .nav-links.open{display:flex}
+  .nav-links a:not(.btn){padding:14px 0;font-size:1.05rem;border-bottom:1px solid var(--line-night)}
+  .nav-links .btn{margin-top:16px;min-height:50px}
+  .burger{display:inline-flex}
+  .ex-grid,.feat-grid,.about,.pilot-grid,.calc{grid-template-columns:minmax(0,1fr)}
+  .feat-head{position:static}
+  .ex-stage{order:-1}
+  .price-grid{grid-template-columns:minmax(0,1fr)}
+  .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:860px){
+  .hero{padding-top:calc(var(--nav) + 4px)}
+  .hero-grid{grid-template-columns:minmax(0,1fr);min-height:0;gap:22px}
+  .slot{order:-1;width:min(100%,46svh)}
+  .eyebrow{margin-bottom:14px}.lede{margin-top:18px}.cta{margin-top:22px}.stats{margin-top:28px}
+  .cta .btn{flex:1 1 150px}
+}
+@media (max-width:640px){
+  :root{--panel:20px}
+  .fit{grid-template-columns:minmax(0,1fr)}
+  form{grid-template-columns:minmax(0,1fr)}
+  .findings{font-size:.84rem}.findings th,.findings td{padding:0 3px}
+  .sheet-meta span:last-child{display:none}
+  .sheet .sd{display:none}
+  .readout{font-size:.72rem;padding:6px 10px;border-radius:12px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;transition-delay:0s!important}
+  .js .rv{opacity:1;transform:none}
+  .marquee{overflow-x:auto}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+
+<div class="paper" id="paper" aria-hidden="true">
+  <div class="sheet">
+    <h2>MAP FINDINGS SUMMARY</h2>
+    <div class="sheet-meta"><span>TARGET PROPERTY: 7300 HARRISBURG BLVD<br>HOUSTON, TX 77011</span><span>SEARCH RADIUS: 1.000 MI<br>PAGE 4</span></div>
+    <table>
+      <thead><tr><th>DATABASE</th><th class="sd">SEARCH DIST.</th><th>&lt; 1/8</th><th>1/8-1/4</th><th>1/4-1/2</th><th>1/2-1</th><th>TOTAL</th></tr></thead>
+      <tbody>
+        <tr><td>NPL</td><td class="sd">1.000</td><td data-k="NPL" data-b="0">0</td><td data-k="NPL" data-b="1">0</td><td data-k="NPL" data-b="2">0</td><td data-k="NPL" data-b="3">0</td><td>0</td></tr>
+        <tr class="hl"><td><span>LPST</span></td><td class="sd">0.500</td><td data-k="LPST" data-b="0">1</td><td data-k="LPST" data-b="1">4</td><td data-k="LPST" data-b="2">5</td><td data-k="LPST" data-b="3">18</td><td>28</td></tr>
+        <tr><td>BROWNFIELDS</td><td class="sd">0.500</td><td data-k="BROWNFIELD" data-b="0">0</td><td data-k="BROWNFIELD" data-b="1">1</td><td data-k="BROWNFIELD" data-b="2">1</td><td data-k="BROWNFIELD" data-b="3">0</td><td>2</td></tr>
+        <tr><td>VCP</td><td class="sd">0.500</td><td data-k="VCP" data-b="0">0</td><td data-k="VCP" data-b="1">0</td><td data-k="VCP" data-b="2">1</td><td data-k="VCP" data-b="3">0</td><td>1</td></tr>
+        <tr><td>IOP</td><td class="sd">0.500</td><td data-k="IOP" data-b="0">0</td><td data-k="IOP" data-b="1">0</td><td data-k="IOP" data-b="2">1</td><td data-k="IOP" data-b="3">0</td><td>1</td></tr>
+        <tr><td>RCRA GEN</td><td class="sd">0.250</td><td data-k="RCRA_GEN" data-b="0">1</td><td data-k="RCRA_GEN" data-b="1">0</td><td data-k="RCRA_GEN" data-b="2">1</td><td data-k="RCRA_GEN" data-b="3">15</td><td>17</td></tr>
+        <tr><td>RCRA NLR</td><td class="sd">0.250</td><td data-k="RCRA_NLR" data-b="0">0</td><td data-k="RCRA_NLR" data-b="1">1</td><td data-k="RCRA_NLR" data-b="2">3</td><td data-k="RCRA_NLR" data-b="3">27</td><td>31</td></tr>
+        <tr><td>PST / UST</td><td class="sd">0.250</td><td data-k="PST" data-b="0">0</td><td data-k="PST" data-b="1">0</td><td data-k="PST" data-b="2">5</td><td data-k="PST" data-b="3">11</td><td>16</td></tr>
+        <tr><td>CAA</td><td class="sd">SUPPL.</td><td data-k="CAA" data-b="0">0</td><td data-k="CAA" data-b="1">0</td><td data-k="CAA" data-b="2">2</td><td data-k="CAA" data-b="3">2</td><td>4</td></tr>
+        <tr><td>CWA</td><td class="sd">SUPPL.</td><td data-k="CWA" data-b="0">2</td><td data-k="CWA" data-b="1">1</td><td data-k="CWA" data-b="2">4</td><td data-k="CWA" data-b="3">32</td><td>39</td></tr>
+      </tbody>
+    </table>
+    <div class="sheet-foot"><span>TOTAL PLOTTED: 139</span><span>EPA / TCEQ</span></div>
+  </div>
+</div>
+<canvas class="fx" id="fx" aria-hidden="true"></canvas>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="#main" aria-label="Lone Radius, back to top">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="10.5"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2.2" fill="#e6f23c" stroke="none"/></svg>
+      Lone Radius
+    </a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="links" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8h18M3 16h18"/></svg>
+    </button>
+    <nav class="nav-links" id="links" aria-label="Main">
+      <a href="#map">The map</a>
+      <a href="#inside">What's inside</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#about">About</a>
+      <a class="btn btn-mark" href="#pilot">Run a free site</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="hero" aria-labelledby="h1">
+  <canvas id="heroCv" aria-hidden="true"></canvas>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow mono rvh" style="--i:0"><i></i>Texas Phase I screening</p>
+      <h1 id="h1" class="rvh" style="--i:1"><span>Know the radius</span><span>before you</span><span class="dim">price the job.</span></h1>
+      <p class="lede rvh" style="--i:2">An interactive map of EPA and TCEQ records around any Texas address, with ASTM search distances and elevation already worked out.</p>
+      <div class="cta rvh" style="--i:3">
+        <a class="btn btn-mark" href="#pilot">Run a free site <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+        <a class="btn btn-ghost" href="https://coriosdialetheia.github.io/texas-site-screening/houston-7300-harrisburg.html">Open a live map</a>
+      </div>
+      <dl class="stats rvh" style="--i:4" aria-label="Results for the Houston example site">
+        <div><dd style="margin:0"><b class="tnum" data-count="139">139</b></dd><dt><span>records within 1 mile</span></dt></div>
+        <div><dd style="margin:0"><b class="tnum hot" data-count="16">16</b></dd><dt><span>inside ASTM search distance</span></dt></div>
+        <div><dd style="margin:0"><b class="tnum" data-count="10">10</b></dd><dt><span>leaking tanks within 0.5 mi</span></dt></div>
+      </dl>
+    </div>
+    <div class="slot" id="heroSlot"><p class="readout rvh" id="heroRead" style="--i:5" aria-hidden="true">7300 Harrisburg Blvd, Houston</p></div>
+  </div>
+</section>
+
+<div class="panel on-paper">
+  <div class="marquee" aria-hidden="true">
+    <ul><li>NPL</li><li>SEMS</li><li>RCRA</li><li>LPST</li><li>PST / UST</li><li>VCP</li><li>IOP</li><li>IHW</li><li>BROWNFIELDS</li><li>TRI</li><li>CAA</li><li>CWA</li></ul>
+    <ul><li>NPL</li><li>SEMS</li><li>RCRA</li><li>LPST</li><li>PST / UST</li><li>VCP</li><li>IOP</li><li>IHW</li><li>BROWNFIELDS</li><li>TRI</li><li>CAA</li><li>CWA</li></ul>
+  </div>
+
+  <section class="sec manifesto wrap" aria-label="Why it exists">
+    <p id="manifesto">Every Phase I starts with the same unknown. What is around this site? See the answer while the proposal is still open, so the scope and the quote are built on records instead of a guess.</p>
+    <ul class="facts">
+      <li class="rv"><b>17</b><span>federal and Texas record sets screened</span></li>
+      <li class="rv" style="--d:1"><b>4</b><span>distance rings, from 1/8 mile to 1 mile</span></li>
+      <li class="rv" style="--d:2"><b>48 h</b><span>to get your free pilot map back</span></li>
+      <li class="rv" style="--d:3"><b>$0</b><span>for your first site, with no contract</span></li>
+    </ul>
+  </section>
+
+  <section class="sec night explorer" id="map" aria-labelledby="mapH">
+    <div class="wrap">
+      <p class="tag mono rv"><b>01</b><span>The map</span></p>
+      <h2 class="big rv" id="mapH">139 records. <em>16 that need your eyes first.</em></h2>
+      <p class="sub rv">This is real output for one Houston address. Pick a database, or cut straight to the records inside their ASTM search distance.</p>
+      <div class="ex-grid">
+        <div class="rv">
+          <div class="seg" role="group" aria-label="Records shown">
+            <button type="button" id="segAll" aria-pressed="true">All records</button>
+            <button type="button" id="segAstm" aria-pressed="false">Inside ASTM</button>
+          </div>
+          <div id="tableHost"></div>
+        </div>
+        <div class="ex-stage rv" style="--d:1">
+          <div class="ex-canvas" id="exSlot">
+            <canvas id="exCv" role="img" aria-label="Radius map of records around the Houston example site, with rings at one eighth, one quarter, one half and one mile."></canvas>
+            <p class="count" aria-live="polite"><b class="tnum" id="exCount">139</b><span id="exLabel">records shown</span></p>
+          </div>
+          <p class="ex-read" id="exRead">Tap a point to read the record.</p>
+          <div class="legend"><span><i class="a"></i>Inside ASTM distance</span><span><i class="b"></i>Outside it, or supplemental</span></div>
+        </div>
+      </div>
+      <div class="ex-foot">
+        <span>7300 Harrisburg Blvd, Houston, TX · public EPA and TCEQ data · generated Nov 17, 2026</span>
+        <a class="tlink" href="https://coriosdialetheia.github.io/texas-site-screening/austin-4700-s-congress.html">Open the Austin example <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12l8-8M6 4h6v6"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec wrap" id="inside" aria-labelledby="insideH">
+    <div class="feat-grid">
+      <div class="feat-head">
+        <p class="tag mono rv"><b>02</b><span>What's inside</span></p>
+        <h2 class="big rv" id="insideH">The first read, <em>already organized.</em></h2>
+      </div>
+      <ol class="feat">
+        <li class="rv"><span class="n mono">01</span><div><h3>ASTM distance by database</h3><p>Each record is tested against the search distance for its own list, so a 0.25-mile list and a 1-mile list never get lumped together.</p></div></li>
+        <li class="rv"><span class="n mono">02</span><div><h3>Elevation against the site</h3><p>Every record shows its height relative to your site in feet, so possible upgradient sources stand out.</p></div></li>
+        <li class="rv"><span class="n mono">03</span><div><h3>Edwards Aquifer check</h3><p>Each map states whether the site falls inside the regulated Edwards Aquifer zones.</p></div></li>
+        <li class="rv"><span class="n mono">04</span><div><h3>Key findings in plain language</h3><p>The nearest record per database, with distance and direction, ready to copy into your notes.</p></div></li>
+        <li class="rv"><span class="n mono">05</span><div><h3>A link to the source record</h3><p>Open the agency record behind a point and verify it yourself.</p></div></li>
+        <li class="rv"><span class="n mono">06</span><div><h3>CSV, PDF and three basemaps</h3><p>Export the table, print the map, and switch between streets, aerial and USGS topo.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec night elev" aria-labelledby="elevH">
+    <div class="wrap">
+      <p class="tag mono rv"><b>03</b><span>Read the terrain</span></p>
+      <h2 class="big rv" id="elevH">Distance tells you what's near. <em>Elevation tells you where to look first.</em></h2>
+      <figure class="xsec" id="xsec">
+        <svg viewBox="0 0 1200 300" role="img" aria-label="Schematic cross-section. One record sits 12 feet above the site and is marked as possibly upgradient. Another sits 8 feet below it.">
+          <path class="terrain" pathLength="1" d="M0 96C140 86 230 92 330 112S520 178 640 186 860 214 1000 226 1140 238 1200 240"/>
+          <g class="pin"><circle cx="330" cy="112" r="7" class="hot"/><line x1="330" y1="100" x2="330" y2="52" stroke="#e6f23c"/><text x="330" y="38" text-anchor="middle" class="hot"><tspan x="330" dy="-1.2em">+12 ft</tspan><tspan x="330" dy="1.2em">possible upgradient</tspan></text></g>
+          <g class="pin"><circle cx="640" cy="186" r="9" fill="#f2f0e9"/><circle cx="640" cy="186" r="17" fill="none" stroke="#f2f0e9"/><text x="640" y="146" text-anchor="middle">YOUR SITE</text></g>
+          <g class="pin"><circle cx="980" cy="224" r="5" fill="#c9c9c0"/><line x1="980" y1="214" x2="980" y2="176" stroke="#6b706f"/><text x="980" y="162" text-anchor="middle">−8 ft</text></g>
+        </svg>
+        <figcaption class="xcap">Schematic, not to scale. Elevation is a first clue, not a groundwater flow direction. That call stays with your Environmental Professional.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="sec wrap" aria-labelledby="fitH">
+    <p class="tag mono rv"><b>04</b><span>Where it fits</span></p>
+    <h2 class="big rv" id="fitH">The step before the report, <em>not a substitute for it.</em></h2>
+    <div class="fit">
+      <div class="rv"><h3>Use it to</h3><ul>
+        <li><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 9.5l4 4 8-9"/></svg>Scope and price a Phase I with fewer surprises</li>
+        <li><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 9.5l4 4 8-9"/></svg>Compare many parcels for solar, real estate or lending clients</li>
+        <li><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 9.5l4 4 8-9"/></svg>Decide where a closer look comes first</li>
+      </ul></div>
+      <div class="no rv" style="--d:1"><h3>It does not replace</h3><ul>
+        <li><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 4l10 10M14 4L4 14"/></svg>A standard environmental database report</li>
+        <li><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 4l10 10M14 4L4 14"/></svg>Historical sources such as Sanborn maps and aerial photos</li>
+        <li><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 4l10 10M14 4L4 14"/></svg>A site visit or your Environmental Professional's judgment</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="sec wrap" id="pricing" aria-labelledby="priceH" style="padding-top:0">
+    <p class="tag mono rv"><b>05</b><span>Pricing</span></p>
+    <h2 class="big rv" id="priceH">Judge the first one <em>for free.</em></h2>
+    <div class="price-grid">
+      <article class="plan lead rv"><h3>Free pilot</h3><p class="amt">$0</p><p class="per">One real site per firm</p><ul><li>Interactive map and CSV</li><li>Back within 48 hours</li><li>Private Google Drive delivery</li></ul><a class="btn btn-mark" href="#pilot">Run a free site</a></article>
+      <article class="plan rv" style="--d:1"><h3>Per address</h3><p class="amt">$49</p><p class="per">Per site, 3-site minimum</p><ul><li>Map, CSV and printable PDF</li><li>Two to four lines of findings per site</li><li>2 business days, re-runs free for 90 days</li></ul></article>
+      <article class="plan rv" style="--d:2"><h3>Portfolio review</h3><p class="amt">$29</p><p class="per">Per site, 20-site minimum ($580)</p><ul><li>One map per site, KMZ accepted</li><li>Summary table ranked by risk score</li><li>3 business days for up to 50 sites</li></ul></article>
+    </div>
+    <div class="calc rv">
+      <div>
+        <h3>Price your next batch</h3>
+        <label class="r" for="sites">Number of sites <output class="n tnum" id="sitesOut" for="sites">3</output></label>
+        <input type="range" id="sites" min="3" max="100" value="12">
+        <label class="check"><input type="checkbox" id="rush"> Rush delivery in 24 hours (+50%)</label>
+      </div>
+      <div class="total" aria-live="polite"><b class="tnum" id="calcTotal">$588</b><p id="calcNote">12 sites at $49 each, delivered in 2 business days.</p></div>
+    </div>
+  </section>
+
+  <section class="sec wrap" id="about" aria-labelledby="aboutH" style="padding-top:0">
+    <div class="about">
+      <div><p class="tag mono rv"><b>06</b><span>Who builds this</span></p><h2 class="big rv" id="aboutH">One builder. <em>Every map checked.</em></h2></div>
+      <div class="rv">
+        <p class="q">I'm Victor Quintero, a physics student in Colima, Mexico, within an hour of Texas time all year.</p>
+        <div class="body">
+          <p>I build data tools for environmental consultants using public EPA and TCEQ records. Lone Radius is new, so I won't show you logos or testimonials I don't have. I'd rather show you the work on one of your own sites.</p>
+          <p>I open and review each map before it leaves. The two public examples on this page were checked against TCEQ and EPA sources on November 17, 2026.</p>
+        </div>
+        <div class="sig"><a href="https://www.linkedin.com/in/victor-quintero-es/">LinkedIn profile</a><a href="mailto:integrity.innovate@gmail.com">integrity.innovate@gmail.com</a></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="pilot sec" id="pilot" aria-labelledby="pilotH">
+  <div class="wrap pilot-grid">
+    <div>
+      <p class="tag mono rv"><b>07</b><span>Free pilot</span></p>
+      <h2 class="big rv" id="pilotH">Send one address. <em>See what's around it.</em></h2>
+      <ol class="steps rv">
+        <li><span class="mono">01</span>Send a real Texas address or coordinates.</li>
+        <li><span class="mono">02</span>Get your map and CSV within 48 hours.</li>
+        <li><span class="mono">03</span>Keep it, with no contract and no obligation.</li>
+      </ol>
+    </div>
+    <form id="form" class="rv" novalidate>
+      <div class="f"><label for="fName">Your name</label><input id="fName" name="name" autocomplete="name" required aria-describedby="eName"><p class="error" id="eName"></p></div>
+      <div class="f"><label for="fEmail">Work email</label><input id="fEmail" name="email" type="email" autocomplete="email" required aria-describedby="eEmail"><p class="error" id="eEmail"></p></div>
+      <div class="f full"><label for="fFirm">Firm <small>(optional)</small></label><input id="fFirm" name="firm" autocomplete="organization"></div>
+      <div class="f full"><label for="fSite">Site address or coordinates</label><input id="fSite" name="site" required aria-describedby="hSite eSite"><p class="help" id="hSite">Texas sites only. Example: 7300 Harrisburg Blvd, Houston, TX</p><p class="error" id="eSite"></p></div>
+      <div class="f full"><label for="fNotes">Anything to look for? <small>(optional)</small></label><textarea id="fNotes" name="notes"></textarea></div>
+      <div class="form-foot">
+        <button class="btn btn-mark" type="submit">Prepare my request</button>
+        <p>This opens your email app with the request ready to send. Your site is never published, and the map is shared only with your email through private Google Drive.</p>
+      </div>
+      <div class="sent" id="sent" role="status" hidden>Your email app should now be open. If it isn't, write to integrity.innovate@gmail.com. <button type="button" id="copy">Copy address</button></div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <p>Lone Radius is a screening aid built on public data. It does not replace a standard database report or an Environmental Professional's judgment. Not affiliated with ASTM, EPA or TCEQ.</p>
+    <p>Colima, Mexico · Serving Texas</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+var DATA={"k":["BROWNFIELD","CAA","CWA","IOP","LPST","PST","RCRA_GEN","RCRA_NLR","VCP"],"p":[[0.031,1.832,6,1,"ESE",0],[0.082,1.88,2,0,"ESE",0],[0.082,1.88,2,0,"ESE",0],[0.084,0.087,4,1,"N",3],[0.186,-1.453,4,1,"W",1],[0.195,-1.689,2,0,"W",-2],[0.208,-1.789,4,1,"WSW",-2],[0.217,-1.48,4,1,"W",-1],[0.22,0.577,0,1,"NNE",2],[0.236,-1.124,4,1,"WNW",2],[0.239,-1.217,7,1,"WNW",0],[0.271,1.259,4,1,"ENE",0],[0.274,0.237,0,1,"NNE",2],[0.294,2.549,7,0,"SE",-18],[0.3,0.267,2,0,"NNE",1],[0.32,-0.013,2,0,"N",1],[0.351,1.94,5,0,"ESE",-1],[0.354,1.96,4,1,"ESE",0],[0.355,0.467,1,0,"NNE",0],[0.361,1.001,5,0,"ENE",0],[0.363,1.009,5,0,"ENE",0],[0.363,1.008,4,1,"ENE",0],[0.367,1.145,8,1,"ENE",0],[0.381,-2.518,7,0,"SW",-13],[0.381,-2.518,1,0,"SW",-13],[0.393,-1.257,3,1,"WNW",-1],[0.394,2.345,6,0,"SE",-3],[0.395,1.431,5,0,"E",-1],[0.405,1.905,7,0,"ESE",-1],[0.411,-1.502,2,0,"W",-3],[0.411,-1.48,4,1,"W",-2],[0.421,1.792,4,1,"ESE",0],[0.47,1.876,5,0,"ESE",-1],[0.487,2.088,2,0,"ESE",-2],[0.505,-1.403,6,0,"W",-2],[0.515,-1.25,5,0,"WNW",0],[0.516,-1.22,6,0,"WNW",-1],[0.517,-1.25,4,0,"WNW",0],[0.528,-1.106,7,0,"WNW",3],[0.536,-1.072,7,0,"WNW",1],[0.541,-1.22,7,0,"WNW",-1],[0.578,-1.222,7,0,"WNW",-1],[0.584,-1.181,4,0,"WNW",1],[0.588,1.382,6,0,"E",-2],[0.596,-0.713,5,0,"NW",2],[0.619,-1.224,6,0,"WNW",0],[0.624,3.038,2,0,"S",2],[0.648,0.299,2,0,"NNE",0],[0.649,0.405,7,0,"NNE",-3],[0.651,-1.473,4,0,"W",-1],[0.654,0.477,2,0,"NNE",-6],[0.672,-1.206,5,0,"WNW",3],[0.676,1.904,7,0,"ESE",-4],[0.691,-1.223,7,0,"WNW",1],[0.692,-1.557,7,0,"W",-4],[0.699,-1.586,2,0,"W",-7],[0.704,-0.209,7,0,"NNW",2],[0.705,-0.85,7,0,"NW",1],[0.707,1.125,7,0,"ENE",-8],[0.716,0.778,7,0,"NE",-6],[0.716,0.778,2,0,"NE",-6],[0.716,1.875,4,0,"ESE",-3],[0.717,1.105,6,0,"ENE",-7],[0.721,0.599,7,0,"NE",-9],[0.721,0.599,1,0,"NE",-9],[0.728,-1.546,2,0,"W",2],[0.733,-0.143,2,0,"N",1],[0.734,-0.822,4,0,"NW",2],[0.736,0.364,4,0,"NNE",-1],[0.741,0.566,2,0,"NNE",-9],[0.741,-0.818,5,0,"NW",2],[0.746,-0.763,5,0,"NW",2],[0.749,-0.297,6,0,"NNW",3],[0.75,0.938,4,0,"NE",-4],[0.751,-0.771,4,0,"NW",3],[0.76,-0.166,4,0,"N",4],[0.763,0.755,7,0,"NE",-3],[0.763,0.755,2,0,"NE",-3],[0.763,0.755,6,0,"NE",-3],[0.765,1.707,7,0,"E",-6],[0.766,0.665,7,0,"NE",-9],[0.766,0.665,6,0,"NE",-9],[0.767,1.432,7,0,"E",0],[0.767,1.432,2,0,"E",0],[0.772,-1.591,7,0,"W",-5],[0.773,-0.337,7,0,"NNW",2],[0.774,1.174,4,0,"ENE",-4],[0.778,-0.384,4,0,"NNW",3],[0.779,1.013,2,0,"ENE",-6],[0.78,1.552,2,0,"E",0],[0.782,1.214,2,0,"ENE",-4],[0.784,0.935,6,0,"NE",-5],[0.784,0.935,2,0,"NE",-5],[0.788,0.896,4,0,"NE",-4],[0.79,-0.362,7,0,"NNW",2],[0.799,-1.809,5,0,"WSW",-1],[0.803,-0.359,4,0,"NNW",2],[0.803,-0.359,4,0,"NNW",2],[0.804,-0.357,5,0,"NNW",2],[0.809,-1.573,2,0,"W",-2],[0.811,0.469,2,0,"NNE",-4],[0.818,-0.933,7,0,"NW",3],[0.82,-0.385,5,0,"NNW",2],[0.821,2.238,2,0,"SE",-8],[0.827,2.861,2,0,"SSE",2],[0.836,0.797,4,0,"NE",-9],[0.841,0.344,4,0,"NNE",-2],[0.856,-0.303,5,0,"NNW",4],[0.857,0.6,6,0,"NE",-8],[0.857,0.6,2,0,"NE",-8],[0.857,-1.225,7,0,"WNW",3],[0.861,1.583,2,0,"E",-1],[0.876,0.569,6,0,"NNE",-7],[0.881,-1.544,7,0,"W",-1],[0.883,0.005,2,0,"N",-6],[0.889,0.194,6,0,"N",-17],[0.889,0.194,2,0,"N",-17],[0.891,0.432,2,0,"NNE",-5],[0.891,0.432,2,0,"NNE",-5],[0.906,-1.534,6,0,"W",0],[0.915,0.237,2,0,"NNE",-22],[0.926,-0.804,1,0,"NW",4],[0.926,-0.804,2,0,"NW",4],[0.94,-1.5,7,0,"W",1],[0.945,0.491,2,0,"NNE",-1],[0.954,1.321,2,0,"ENE",-16],[0.956,1.935,4,0,"ESE",-11],[0.96,0.512,2,0,"NNE",-4],[0.971,-1.197,5,0,"WNW",4],[0.976,-1.511,7,0,"W",1],[0.976,-1.208,4,0,"WNW",3],[0.98,-1.409,7,0,"W",1],[0.985,-0.383,6,0,"NNW",3],[0.985,-1.229,6,0,"WNW",9],[0.987,1.882,5,0,"ESE",-7],[0.992,0.697,2,0,"NE",-31],[0.993,2.32,2,0,"SE",-26],[0.996,2.343,2,0,"SE",-26],[0.998,-0.115,7,0,"N",2]]};
+var root=document.documentElement,$=function(s){return document.querySelector(s)},$$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))};
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var lowPower=(navigator.deviceMemory&&navigator.deviceMemory<=2)||(navigator.hardwareConcurrency&&navigator.hardwareConcurrency<=2);
+var MARK='230,242,60',CHALK='226,225,216';
+var ROWS=[['NPL','NPL',1],['LPST','LPST',.5],['BROWNFIELD','Brownfields',.5],['VCP','VCP',.5],['IOP','IOP',.5],['RCRA_GEN','RCRA Gen',.25],['RCRA_NLR','RCRA NLR',.25],['PST','PST / UST',.25],['CAA','CAA',null],['CWA','CWA',null]];
+var NAME={};ROWS.forEach(function(r){NAME[r[0]]=r[1]});
+var ASTM={};ROWS.forEach(function(r){ASTM[r[0]]=r[2]});
+var pts=DATA.p.map(function(r){return{d:r[0],a:r[1],k:DATA.k[r[2]],in:!!r[3],dir:r[4],rel:r[5]}});
+var band=function(d){return d<=.125?0:d<=.25?1:d<=.5?2:3};
+var clamp=function(v){return Math.max(0,Math.min(1,v))};
+var TAU=Math.PI*2;
+function describe(p){
+  var s=NAME[p.k]+' · '+p.d.toFixed(2)+' mi '+p.dir;
+  if(p.rel!==null&&p.rel!==undefined){var r=Math.round(p.rel);s+=' · '+(r>0?'+':r<0?'−':'')+Math.abs(r)+' ft vs site'}
+  return{text:s,tail:p.in?'inside '+ASTM[p.k]+' mi':(ASTM[p.k]?'outside '+ASTM[p.k]+' mi':'supplemental')};
+}
+
+/* radar */
+function Radar(cv,slot,o){
+  this.cv=cv;this.slot=slot;this.o=o||{};this.g=cv.getContext('2d');this.ring=this.o.intro?0:1;
+  this.sweep=-Math.PI/2;this.hi=-1;this.visible=true;this.last=0;
+  var start=this.o.intro?0:1;
+  this.s=pts.map(function(){return{al:start,to:start,pg:0}});
+  this.resize();
+}
+Radar.prototype.resize=function(){
+  var r=this.cv.getBoundingClientRect(),s=this.slot.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,lowPower?1.25:2);
+  this.cv.width=Math.round(r.width*dpr);this.cv.height=Math.round(r.height*dpr);
+  this.g.setTransform(dpr,0,0,dpr,0,0);this.w=r.width;this.h=r.height;
+  this.cx=s.left-r.left+s.width/2;this.cy=s.top-r.top+s.height/2;
+  this.R=Math.min(s.width,s.height)/2-(this.o.pad||26);
+  this.draw(0);
+};
+Radar.prototype.pos=function(p){var r=p.d*this.R;return[this.cx+Math.sin(p.a)*r,this.cy-Math.cos(p.a)*r]};
+Radar.prototype.step=function(dt,now){
+  var prev=this.sweep,self=this;
+  if(!reduce)this.sweep+=dt*.00042;
+  var e=1-Math.pow(.86,dt/16.7);
+  pts.forEach(function(p,i){
+    var st=self.s[i];st.al+=(st.to-st.al)*e;if(st.pg>0)st.pg=Math.max(0,st.pg-dt/1500);
+    if(reduce||st.to<.5)return;
+    var ang=p.a-Math.PI/2,diff=((ang-prev)%TAU+TAU)%TAU;
+    if(diff<self.sweep-prev){st.pg=1;if(p.in&&self.o.onPing&&now-self.last>1500){self.last=now;self.o.onPing(p)}}
+  });
+  if(this.sweep>TAU*4)this.sweep-=TAU*4;
+};
+Radar.prototype.draw=function(){
+  var g=this.g,cx=this.cx,cy=this.cy,R=this.R,self=this;
+  g.clearRect(0,0,this.w,this.h);
+  if(R<=0)return;
+  var rings=[.125,.25,.5,1],labels=['1/8','1/4','1/2','1 mi'],prog=this.ring;
+  if(prog>.02&&!reduce&&g.createConicGradient){
+    var c=g.createConicGradient(this.sweep,cx,cy);
+    c.addColorStop(0,'rgba('+MARK+',0)');c.addColorStop(.8,'rgba('+MARK+',0)');c.addColorStop(1,'rgba('+MARK+','+(.13*prog)+')');
+    g.fillStyle=c;g.beginPath();g.arc(cx,cy,R,0,TAU);g.fill();
+    g.strokeStyle='rgba('+MARK+','+(.5*prog)+')';g.lineWidth=1;g.beginPath();g.moveTo(cx,cy);g.lineTo(cx+Math.cos(this.sweep)*R,cy+Math.sin(this.sweep)*R);g.stroke();
+  }
+  g.lineWidth=1;
+  rings.forEach(function(r,i){
+    var u=clamp(prog*1.5-i*.16);if(u<=0)return;
+    g.strokeStyle='rgba('+CHALK+','+(i===3?.42:.26)+')';
+    g.beginPath();g.arc(cx,cy,r*R,-Math.PI/2,-Math.PI/2+TAU*u);g.stroke();
+    if(u>=1&&(i>0||R>130)){
+      var a=Math.PI/4,x=cx+Math.cos(-a)*r*R,y=cy+Math.sin(-a)*r*R;
+      g.font='500 11px "Geist Mono",ui-monospace,monospace';var w=g.measureText(labels[i]).width+8;
+      g.fillStyle='#07090a';g.fillRect(x-w/2,y-8,w,16);g.fillStyle='rgba('+CHALK+',.85)';g.textAlign='center';g.textBaseline='middle';g.fillText(labels[i],x,y);
+    }
+  });
+  pts.forEach(function(p,i){
+    var st=self.s[i];if(st.al<.02)return;var q=self.pos(p),hot=p.in;
+    if(st.pg>.01&&hot){g.fillStyle='rgba('+MARK+','+(.24*st.pg*st.al)+')';g.beginPath();g.arc(q[0],q[1],5+11*(1-st.pg),0,TAU);g.fill()}
+    g.fillStyle=hot?'rgba('+MARK+','+st.al+')':'rgba('+CHALK+','+(st.al*(.42+.5*st.pg))+')';
+    g.beginPath();g.arc(q[0],q[1],hot?3.4:1.8,0,TAU);g.fill();
+    if(i===self.hi){g.strokeStyle='#fff';g.lineWidth=1.4;g.beginPath();g.arc(q[0],q[1],8,0,TAU);g.stroke();g.lineWidth=1}
+  });
+  g.fillStyle='#f2f0e9';g.beginPath();g.arc(cx,cy,4.5,0,TAU);g.fill();
+  g.strokeStyle='rgba(242,240,233,.8)';g.beginPath();g.arc(cx,cy,9,0,TAU);g.stroke();
+};
+Radar.prototype.nearest=function(x,y,max){
+  var best=-1,bd=max*max,self=this;
+  pts.forEach(function(p,i){if(self.s[i].to<.5)return;var q=self.pos(p),d=(q[0]-x)*(q[0]-x)+(q[1]-y)*(q[1]-y);if(d<bd){bd=d;best=i}});
+  return best;
+};
+
+function setRead(el,p){var t=describe(p);el.textContent='';el.appendChild(document.createTextNode(t.text+' · '));var b=document.createElement('b');b.textContent=t.tail;el.appendChild(b)}
+
+var heroRead=$('#heroRead');
+var isIntro=root.classList.contains('intro');
+var hero=new Radar($('#heroCv'),$('#heroSlot'),{intro:isIntro,pad:30,onPing:function(p){setRead(heroRead,p)}});
+var ex=new Radar($('#exCv'),$('#exSlot'),{pad:18});
+var radars=[hero,ex],running=false,lastT=0,frame=0;
+function loop(now){
+  var any=radars.some(function(r){return r.visible});
+  if(!any||document.hidden){running=false;return}
+  var dt=Math.min(now-lastT,64);lastT=now;frame++;
+  var slow=lowPower||window.innerWidth<820;
+  if(!slow||frame%2===0){radars.forEach(function(r){if(r.visible){r.step(slow?dt*2:dt,now);r.draw()}})}
+  requestAnimationFrame(loop);
+}
+function kick(){if(reduce){radars.forEach(function(r){r.s.forEach(function(s){s.al=s.to});r.draw()});return}if(!running){running=true;lastT=performance.now();requestAnimationFrame(loop)}}
+if('IntersectionObserver' in window){
+  radars.forEach(function(r){new IntersectionObserver(function(e){r.visible=e[0].isIntersecting;if(r.visible)kick()},{rootMargin:'80px'}).observe(r.cv)});
+}
+document.addEventListener('visibilitychange',function(){if(!document.hidden)kick()});
+var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){radars.forEach(function(r){r.resize()})},120)},{passive:true});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){radars.forEach(function(r){r.draw()})});
+
+/* hero hover */
+$('#hero').addEventListener('pointermove',function(e){
+  if(e.pointerType!=='mouse')return;var r=hero.cv.getBoundingClientRect(),i=hero.nearest(e.clientX-r.left,e.clientY-r.top,16);
+  hero.hi=i;if(i>=0){setRead(heroRead,pts[i]);hero.last=performance.now()+2500}if(reduce)hero.draw();
+},{passive:true});
+
+/* counters */
+function counters(){
+  $$('[data-count]').forEach(function(el){
+    var to=+el.dataset.count;if(reduce){el.textContent=to;return}
+    var t0=performance.now();(function f(n){var u=clamp((n-t0)/1100),e=1-Math.pow(1-u,4);el.textContent=Math.round(to*e);if(u<1)requestAnimationFrame(f)})(t0);
+  });
+}
+
+/* intro */
+function runIntro(){
+  var paper=$('#paper'),fx=$('#fx');
+  var finished=false,counted=false;
+  function finish(){
+    if(finished)return;finished=true;
+    ['wheel','touchstart','keydown','pointerdown'].forEach(function(n){window.removeEventListener(n,finish)});
+    paper.remove();fx.remove();root.classList.remove('intro');root.classList.add('go');
+    hero.ring=1;hero.s.forEach(function(s){s.to=1});
+    try{sessionStorage.setItem('ug-intro','1')}catch(e){}
+    if(!counted)counters();
+  }
+  ['wheel','touchstart','keydown','pointerdown'].forEach(function(n){window.addEventListener(n,finish,{passive:true})});
+  var hr=hero.cv.getBoundingClientRect(),cx=hr.left+hero.cx,cy=hr.top+hero.cy;
+  paper.style.setProperty('--cx',cx+'px');paper.style.setProperty('--cy',cy+'px');
+  var dpr=Math.min(window.devicePixelRatio||1,2),W=window.innerWidth,H=window.innerHeight;
+  fx.width=W*dpr;fx.height=H*dpr;var g=fx.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);
+  var cells={};$$('#paper td[data-k]').forEach(function(td){var b=td.getBoundingClientRect();cells[td.dataset.k+'|'+td.dataset.b]={x:b.right-14,y:b.top+b.height/2}});
+  var order=pts.map(function(p,i){return i}).sort(function(a,b){return pts[a].d-pts[b].d});
+  var parts=order.map(function(i,n){
+    var p=pts[i],c=cells[p.k+'|'+band(p.d)]||{x:cx,y:cy},e=hero.pos(p);
+    return{i:i,hot:p.in,x0:c.x+(Math.random()-.5)*12,y0:c.y+(Math.random()-.5)*6,x1:hr.left+e[0],y1:hr.top+e[1],delay:1200+n*5.5,land:false};
+  });
+  var t0=performance.now(),a=0,b=0,c=0;
+  (function tick(now){
+    if(finished)return;var t=now-t0;
+    if(t>1150&&!a){a=1;paper.classList.add('lift')}
+    if(t>1380&&!b){b=1;paper.classList.add('collapse')}
+    if(t>1950&&!c){c=1;root.classList.add('go');counted=true;counters()}
+    hero.ring=clamp((t-1500)/1100);
+    g.clearRect(0,0,W,H);
+    parts.forEach(function(q){
+      var u=clamp((t-q.delay)/820);if(u<=0)return;
+      if(u>=1){if(!q.land){q.land=true;var s=hero.s[q.i];s.to=1;s.al=1;s.pg=1}return}
+      var e=u<.5?4*u*u*u:1-Math.pow(-2*u+2,3)/2,x=q.x0+(q.x1-q.x0)*e,y=q.y0+(q.y1-q.y0)*e;
+      g.fillStyle=q.hot?'#e6f23c':'#f2f0e9';g.strokeStyle='#17190a';g.lineWidth=1;
+      g.beginPath();g.arc(x,y,q.hot?3.6:2.3,0,TAU);g.fill();g.stroke();
+    });
+    if(t>3250)finish();else requestAnimationFrame(tick);
+  })(t0);
+}
+if(isIntro)runIntro();else{root.classList.add('go');counters()}
+kick();
+
+/* explorer */
+var mode='all',rowSel=null,touched=false;
+function visible(p){return(mode==='all'||p.in)&&(!rowSel||p.k===rowSel)}
+function cellCount(k,b){return pts.filter(function(p){return(!k||p.k===k)&&(b===null||band(p.d)===b)&&(mode==='all'||p.in)}).length}
+var host=$('#tableHost');
+function renderTable(){
+  var heads=[['&lt;1/8','&lt;1/8','Under 1/8 mile'],['1/8–1/4','≤1/4','1/8 to 1/4 mile'],['1/4–1/2','≤1/2','1/4 to 1/2 mile'],['1/2–1','≤1','1/2 to 1 mile'],['Total','All','Total']];
+  var h='<table class="findings"><caption class="mono">Map findings summary</caption><thead><tr><th scope="col">Database</th>'+heads.map(function(x){return'<th scope="col" aria-label="'+x[2]+'"><span class="l">'+x[0]+'</span><span class="s">'+x[1]+'</span></th>'}).join('')+'</tr></thead><tbody>';
+  ROWS.forEach(function(r){
+    h+='<tr class="'+(rowSel===r[0]?'sel':'')+'"><th scope="row"><button type="button" data-row="'+r[0]+'" aria-pressed="'+(rowSel===r[0])+'">'+r[1]+'</button></th>';
+    [0,1,2,3].forEach(function(b){var n=cellCount(r[0],b);h+='<td class="'+(n?'':'z')+'">'+n+'</td>'});
+    h+='<td class="t">'+cellCount(r[0],null)+'</td></tr>';
+  });
+  h+='</tbody><tfoot><tr><th scope="row">Total</th>';[0,1,2,3].forEach(function(b){h+='<td>'+cellCount(null,b)+'</td>'});h+='<td>'+cellCount(null,null)+'</td></tr></tfoot></table>';
+  host.innerHTML=h;
+}
+function applyFilter(){
+  var n=0;pts.forEach(function(p,i){var v=visible(p);ex.s[i].to=v?1:0;if(v)n++});
+  ex.hi=-1;$('#exCount').textContent=n;
+  $('#exLabel').textContent=(rowSel?NAME[rowSel]+' ':'')+(mode==='astm'?'inside ASTM distance':'records shown');
+  $('#segAll').setAttribute('aria-pressed',mode==='all');$('#segAstm').setAttribute('aria-pressed',mode==='astm');
+  renderTable();kick();
+}
+$('#segAll').addEventListener('click',function(){touched=true;mode='all';rowSel=null;applyFilter()});
+$('#segAstm').addEventListener('click',function(){touched=true;mode='astm';applyFilter()});
+host.addEventListener('click',function(e){
+  var b=e.target.closest('[data-row]');if(!b)return;touched=true;var k=b.dataset.row;rowSel=rowSel===k?null:k;applyFilter();
+  var again=host.querySelector('[data-row="'+k+'"]');if(again)again.focus();
+});
+$('#exCv').addEventListener('click',function(e){
+  var r=ex.cv.getBoundingClientRect(),i=ex.nearest(e.clientX-r.left,e.clientY-r.top,26);ex.hi=i;
+  if(i>=0)setRead($('#exRead'),pts[i]);kick();
+});
+$('#exCv').addEventListener('pointermove',function(e){
+  if(e.pointerType!=='mouse')return;var r=ex.cv.getBoundingClientRect(),i=ex.nearest(e.clientX-r.left,e.clientY-r.top,14);
+  if(i>=0){ex.hi=i;setRead($('#exRead'),pts[i])}
+},{passive:true});
+applyFilter();
+if('IntersectionObserver' in window&&!reduce){
+  var demo=new IntersectionObserver(function(e){
+    if(!e[0].isIntersecting)return;demo.disconnect();
+    setTimeout(function(){if(!touched){mode='astm';applyFilter()}},1500);
+  },{threshold:.5});demo.observe($('#exSlot'));
+}
+
+/* reveals */
+var rvs=$$('.rv,.xsec');
+if('IntersectionObserver' in window&&!reduce){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px',threshold:.08});
+  rvs.forEach(function(el){io.observe(el)});
+}else rvs.forEach(function(el){el.classList.add('in')});
+
+/* manifesto */
+var mf=$('#manifesto'),words=mf.textContent.split(' ');
+mf.setAttribute('aria-label',mf.textContent);
+mf.innerHTML=words.map(function(w){return'<span class="w" aria-hidden="true">'+w+'</span>'}).join(' ');
+var ws=$$('#manifesto .w'),lit=-1,ticking=false,nav=$('#nav');
+function onScroll(){
+  ticking=false;nav.classList.toggle('solid',window.scrollY>24);
+  var r=mf.getBoundingClientRect(),vh=window.innerHeight,u=clamp((vh*.86-r.top)/(r.height+vh*.42)),n=reduce?ws.length:Math.round(u*ws.length);
+  if(n!==lit){var lo=Math.min(n,Math.max(lit,0)),hi=Math.max(n,Math.max(lit,0));for(var i=lo;i<hi;i++)ws[i].classList.toggle('on',i<n);lit=n}
+}
+window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(onScroll)}},{passive:true});onScroll();
+
+/* menu */
+var burger=$('#burger'),links=$('#links');
+function menu(open){links.classList.toggle('open',open);burger.setAttribute('aria-expanded',open);burger.setAttribute('aria-label',open?'Close menu':'Open menu');nav.classList.toggle('solid',open||window.scrollY>24)}
+burger.addEventListener('click',function(){menu(!links.classList.contains('open'))});
+links.addEventListener('click',function(e){if(e.target.closest('a'))menu(false)});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&links.classList.contains('open')){menu(false);burger.focus()}});
+
+/* calculator */
+var sites=$('#sites'),rush=$('#rush');
+function calc(){
+  var n=+sites.value,rate=n>=20?29:49,r=rush.checked,total=n*rate*(r?1.5:1),when;
+  if(n>50)when='on a timeline agreed up front';else if(r)when='in 24 hours';else when=n>=20?'in 3 business days':'in 2 business days';
+  $('#sitesOut').textContent=n;
+  $('#calcTotal').textContent='$'+Math.round(total).toLocaleString('en-US');
+  $('#calcNote').textContent=n+' sites at $'+rate+' each'+(r?' plus 50% rush':'')+', delivered '+when+'.';
+  sites.style.setProperty('--p',((n-3)/97*100)+'%');
+}
+sites.addEventListener('input',calc);rush.addEventListener('change',calc);calc();
+
+/* form */
+var form=$('#form'),TO='integrity.innovate@gmail.com';
+var rules={fName:function(v){return v?'':'Enter your name so the map can be addressed to you.'},fEmail:function(v){return/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)?'':'Enter a valid email, like you@yourfirm.com.'},fSite:function(v){return v.length>5?'':'Enter a full street address or coordinates.'}};
+function check(id){var el=$('#'+id),msg=rules[id](el.value.trim()),err=$('#e'+id.slice(1));err.textContent=msg;if(msg)el.setAttribute('aria-invalid','true');else el.removeAttribute('aria-invalid');return!msg}
+Object.keys(rules).forEach(function(id){$('#'+id).addEventListener('blur',function(){if(this.value)check(id)})});
+form.addEventListener('submit',function(e){
+  e.preventDefault();var bad=Object.keys(rules).filter(function(id){return!check(id)});
+  if(bad.length){$('#'+bad[0]).focus();return}
+  var v=function(id){return $('#'+id).value.trim()};
+  var body='Name: '+v('fName')+'\nEmail: '+v('fEmail')+'\nFirm: '+(v('fFirm')||'-')+'\nSite: '+v('fSite')+'\nNotes: '+(v('fNotes')||'-');
+  $('#sent').hidden=false;
+  window.location.href='mailto:'+TO+'?subject='+encodeURIComponent('Free pilot request'+(v('fFirm')?': '+v('fFirm'):''))+'&body='+encodeURIComponent(body);
+});
+$('#copy').addEventListener('click',function(){var b=this;if(navigator.clipboard)navigator.clipboard.writeText(TO).then(function(){b.textContent='Copied'})});
+})();
+</script>
+</body>
+</html>
