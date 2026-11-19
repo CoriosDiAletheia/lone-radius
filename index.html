@@ -314,7 +314,7 @@ footer{background:var(--night);color:var(--on-night-muted);font-size:.88rem;padd
       <thead><tr><th>DATABASE</th><th class="sd">SEARCH DIST.</th><th>&lt; 1/8</th><th>1/8-1/4</th><th>1/4-1/2</th><th>1/2-1</th><th>TOTAL</th></tr></thead>
       <tbody>
         <tr><td>NPL</td><td class="sd">1.000</td><td data-k="NPL" data-b="0">0</td><td data-k="NPL" data-b="1">0</td><td data-k="NPL" data-b="2">0</td><td data-k="NPL" data-b="3">0</td><td>0</td></tr>
-        <tr class="hl"><td><span>LPST</span></td><td class="sd">0.500</td><td data-k="LPST" data-b="0">1</td><td data-k="LPST" data-b="1">4</td><td data-k="LPST" data-b="2">5</td><td data-k="LPST" data-b="3">18</td><td>28</td></tr>
+        <tr class="hl"><td><span>LPST</span></td><td class="sd">0.500</td><td data-k="LPST" data-b="0">1</td><td data-k="LPST" data-b="1">4</td><td data-k="LPST" data-b="2">7</td><td data-k="LPST" data-b="3">19</td><td>31</td></tr>
         <tr><td>BROWNFIELDS</td><td class="sd">0.500</td><td data-k="BROWNFIELD" data-b="0">0</td><td data-k="BROWNFIELD" data-b="1">1</td><td data-k="BROWNFIELD" data-b="2">1</td><td data-k="BROWNFIELD" data-b="3">0</td><td>2</td></tr>
         <tr><td>VCP</td><td class="sd">0.500</td><td data-k="VCP" data-b="0">0</td><td data-k="VCP" data-b="1">0</td><td data-k="VCP" data-b="2">1</td><td data-k="VCP" data-b="3">0</td><td>1</td></tr>
         <tr><td>IOP</td><td class="sd">0.500</td><td data-k="IOP" data-b="0">0</td><td data-k="IOP" data-b="1">0</td><td data-k="IOP" data-b="2">1</td><td data-k="IOP" data-b="3">0</td><td>1</td></tr>
@@ -325,7 +325,7 @@ footer{background:var(--night);color:var(--on-night-muted);font-size:.88rem;padd
         <tr><td>CWA</td><td class="sd">SUPPL.</td><td data-k="CWA" data-b="0">2</td><td data-k="CWA" data-b="1">1</td><td data-k="CWA" data-b="2">4</td><td data-k="CWA" data-b="3">32</td><td>39</td></tr>
       </tbody>
     </table>
-    <div class="sheet-foot"><span>TOTAL PLOTTED: 139</span><span>EPA / TCEQ</span></div>
+    <div class="sheet-foot"><span>TOTAL PLOTTED: 142</span><span>EPA / TCEQ</span></div>
   </div>
 </div>
 <canvas class="fx" id="fx" aria-hidden="true"></canvas>
@@ -362,9 +362,9 @@ footer{background:var(--night);color:var(--on-night-muted);font-size:.88rem;padd
         <a class="btn btn-ghost" href="https://coriosdialetheia.github.io/texas-site-screening/houston-7300-harrisburg.html">Open a live map</a>
       </div>
       <dl class="stats rvh" style="--i:4" aria-label="Results for the Houston example site">
-        <div><dd style="margin:0"><b class="tnum" data-count="139">139</b></dd><dt><span>records within 1 mile</span></dt></div>
-        <div><dd style="margin:0"><b class="tnum hot" data-count="16">16</b></dd><dt><span>inside ASTM search distance</span></dt></div>
-        <div><dd style="margin:0"><b class="tnum" data-count="10">10</b></dd><dt><span>leaking tanks within 0.5 mi</span></dt></div>
+        <div><dd style="margin:0"><b class="tnum" data-count="142">142</b></dd><dt><span>records within 1 mile</span></dt></div>
+        <div><dd style="margin:0"><b class="tnum hot" data-count="18">18</b></dd><dt><span>inside ASTM search distance</span></dt></div>
+        <div><dd style="margin:0"><b class="tnum" data-count="12">12</b></dd><dt><span>leaking tanks within 0.5 mi</span></dt></div>
       </dl>
     </div>
     <div class="slot" id="heroSlot"><p class="readout rvh" id="heroRead" style="--i:5" aria-hidden="true">7300 Harrisburg Blvd, Houston</p></div>
@@ -390,7 +390,7 @@ footer{background:var(--night);color:var(--on-night-muted);font-size:.88rem;padd
   <section class="sec night explorer" id="map" aria-labelledby="mapH">
     <div class="wrap">
       <p class="tag mono rv"><b>01</b><span>The map</span></p>
-      <h2 class="big rv" id="mapH">139 records. <em>16 that need your eyes first.</em></h2>
+      <h2 class="big rv" id="mapH">142 records. <em>18 that need your eyes first.</em></h2>
       <p class="sub rv">This is real output for one Houston address. Pick a database, or cut straight to the records inside their ASTM search distance.</p>
       <div class="ex-grid">
         <div class="rv">
@@ -403,14 +403,14 @@ footer{background:var(--night);color:var(--on-night-muted);font-size:.88rem;padd
         <div class="ex-stage rv" style="--d:1">
           <div class="ex-canvas" id="exSlot">
             <canvas id="exCv" role="img" aria-label="Radius map of records around the Houston example site, with rings at one eighth, one quarter, one half and one mile."></canvas>
-            <p class="count" aria-live="polite"><b class="tnum" id="exCount">139</b><span id="exLabel">records shown</span></p>
+            <p class="count" aria-live="polite"><b class="tnum" id="exCount">142</b><span id="exLabel">records shown</span></p>
           </div>
           <p class="ex-read" id="exRead">Tap a point to read the record.</p>
           <div class="legend"><span><i class="a"></i>Inside ASTM distance</span><span><i class="b"></i>Outside it, or supplemental</span></div>
         </div>
       </div>
       <div class="ex-foot">
-        <span>7300 Harrisburg Blvd, Houston, TX · public EPA and TCEQ data · generated Nov 17, 2026</span>
+        <span>7300 Harrisburg Blvd, Houston, TX · public EPA and TCEQ data · generated Nov 18, 2026</span>
         <a class="tlink" href="https://coriosdialetheia.github.io/texas-site-screening/austin-4700-s-congress.html">Open the Austin example <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12l8-8M6 4h6v6"/></svg></a>
       </div>
     </div>
@@ -492,7 +492,7 @@ footer{background:var(--night);color:var(--on-night-muted);font-size:.88rem;padd
         <p class="q">I'm Victor Quintero, a physics student in Colima, Mexico, within an hour of Texas time all year.</p>
         <div class="body">
           <p>I build data tools for environmental consultants using public EPA and TCEQ records. Lone Radius is new, so I won't show you logos or testimonials I don't have. I'd rather show you the work on one of your own sites.</p>
-          <p>I open and review each map before it leaves. The two public examples on this page were checked against TCEQ and EPA sources on November 17, 2026.</p>
+          <p>I open and review each map before it leaves. The two public examples on this page were checked against TCEQ and EPA sources on November 18, 2026.</p>
         </div>
         <div class="sig"><a href="https://www.linkedin.com/in/victor-quintero-es/">LinkedIn profile</a><a href="mailto:integrity.innovate@gmail.com">integrity.innovate@gmail.com</a></div>
       </div>
@@ -537,7 +537,7 @@ footer{background:var(--night);color:var(--on-night-muted);font-size:.88rem;padd
 <script>
 (function(){
 'use strict';
-var DATA={"k":["BROWNFIELD","CAA","CWA","IOP","LPST","PST","RCRA_GEN","RCRA_NLR","VCP"],"p":[[0.031,1.832,6,1,"ESE",0],[0.082,1.88,2,0,"ESE",0],[0.082,1.88,2,0,"ESE",0],[0.084,0.087,4,1,"N",3],[0.186,-1.453,4,1,"W",1],[0.195,-1.689,2,0,"W",-2],[0.208,-1.789,4,1,"WSW",-2],[0.217,-1.48,4,1,"W",-1],[0.22,0.577,0,1,"NNE",2],[0.236,-1.124,4,1,"WNW",2],[0.239,-1.217,7,1,"WNW",0],[0.271,1.259,4,1,"ENE",0],[0.274,0.237,0,1,"NNE",2],[0.294,2.549,7,0,"SE",-18],[0.3,0.267,2,0,"NNE",1],[0.32,-0.013,2,0,"N",1],[0.351,1.94,5,0,"ESE",-1],[0.354,1.96,4,1,"ESE",0],[0.355,0.467,1,0,"NNE",0],[0.361,1.001,5,0,"ENE",0],[0.363,1.009,5,0,"ENE",0],[0.363,1.008,4,1,"ENE",0],[0.367,1.145,8,1,"ENE",0],[0.381,-2.518,7,0,"SW",-13],[0.381,-2.518,1,0,"SW",-13],[0.393,-1.257,3,1,"WNW",-1],[0.394,2.345,6,0,"SE",-3],[0.395,1.431,5,0,"E",-1],[0.405,1.905,7,0,"ESE",-1],[0.411,-1.502,2,0,"W",-3],[0.411,-1.48,4,1,"W",-2],[0.421,1.792,4,1,"ESE",0],[0.47,1.876,5,0,"ESE",-1],[0.487,2.088,2,0,"ESE",-2],[0.505,-1.403,6,0,"W",-2],[0.515,-1.25,5,0,"WNW",0],[0.516,-1.22,6,0,"WNW",-1],[0.517,-1.25,4,0,"WNW",0],[0.528,-1.106,7,0,"WNW",3],[0.536,-1.072,7,0,"WNW",1],[0.541,-1.22,7,0,"WNW",-1],[0.578,-1.222,7,0,"WNW",-1],[0.584,-1.181,4,0,"WNW",1],[0.588,1.382,6,0,"E",-2],[0.596,-0.713,5,0,"NW",2],[0.619,-1.224,6,0,"WNW",0],[0.624,3.038,2,0,"S",2],[0.648,0.299,2,0,"NNE",0],[0.649,0.405,7,0,"NNE",-3],[0.651,-1.473,4,0,"W",-1],[0.654,0.477,2,0,"NNE",-6],[0.672,-1.206,5,0,"WNW",3],[0.676,1.904,7,0,"ESE",-4],[0.691,-1.223,7,0,"WNW",1],[0.692,-1.557,7,0,"W",-4],[0.699,-1.586,2,0,"W",-7],[0.704,-0.209,7,0,"NNW",2],[0.705,-0.85,7,0,"NW",1],[0.707,1.125,7,0,"ENE",-8],[0.716,0.778,7,0,"NE",-6],[0.716,0.778,2,0,"NE",-6],[0.716,1.875,4,0,"ESE",-3],[0.717,1.105,6,0,"ENE",-7],[0.721,0.599,7,0,"NE",-9],[0.721,0.599,1,0,"NE",-9],[0.728,-1.546,2,0,"W",2],[0.733,-0.143,2,0,"N",1],[0.734,-0.822,4,0,"NW",2],[0.736,0.364,4,0,"NNE",-1],[0.741,0.566,2,0,"NNE",-9],[0.741,-0.818,5,0,"NW",2],[0.746,-0.763,5,0,"NW",2],[0.749,-0.297,6,0,"NNW",3],[0.75,0.938,4,0,"NE",-4],[0.751,-0.771,4,0,"NW",3],[0.76,-0.166,4,0,"N",4],[0.763,0.755,7,0,"NE",-3],[0.763,0.755,2,0,"NE",-3],[0.763,0.755,6,0,"NE",-3],[0.765,1.707,7,0,"E",-6],[0.766,0.665,7,0,"NE",-9],[0.766,0.665,6,0,"NE",-9],[0.767,1.432,7,0,"E",0],[0.767,1.432,2,0,"E",0],[0.772,-1.591,7,0,"W",-5],[0.773,-0.337,7,0,"NNW",2],[0.774,1.174,4,0,"ENE",-4],[0.778,-0.384,4,0,"NNW",3],[0.779,1.013,2,0,"ENE",-6],[0.78,1.552,2,0,"E",0],[0.782,1.214,2,0,"ENE",-4],[0.784,0.935,6,0,"NE",-5],[0.784,0.935,2,0,"NE",-5],[0.788,0.896,4,0,"NE",-4],[0.79,-0.362,7,0,"NNW",2],[0.799,-1.809,5,0,"WSW",-1],[0.803,-0.359,4,0,"NNW",2],[0.803,-0.359,4,0,"NNW",2],[0.804,-0.357,5,0,"NNW",2],[0.809,-1.573,2,0,"W",-2],[0.811,0.469,2,0,"NNE",-4],[0.818,-0.933,7,0,"NW",3],[0.82,-0.385,5,0,"NNW",2],[0.821,2.238,2,0,"SE",-8],[0.827,2.861,2,0,"SSE",2],[0.836,0.797,4,0,"NE",-9],[0.841,0.344,4,0,"NNE",-2],[0.856,-0.303,5,0,"NNW",4],[0.857,0.6,6,0,"NE",-8],[0.857,0.6,2,0,"NE",-8],[0.857,-1.225,7,0,"WNW",3],[0.861,1.583,2,0,"E",-1],[0.876,0.569,6,0,"NNE",-7],[0.881,-1.544,7,0,"W",-1],[0.883,0.005,2,0,"N",-6],[0.889,0.194,6,0,"N",-17],[0.889,0.194,2,0,"N",-17],[0.891,0.432,2,0,"NNE",-5],[0.891,0.432,2,0,"NNE",-5],[0.906,-1.534,6,0,"W",0],[0.915,0.237,2,0,"NNE",-22],[0.926,-0.804,1,0,"NW",4],[0.926,-0.804,2,0,"NW",4],[0.94,-1.5,7,0,"W",1],[0.945,0.491,2,0,"NNE",-1],[0.954,1.321,2,0,"ENE",-16],[0.956,1.935,4,0,"ESE",-11],[0.96,0.512,2,0,"NNE",-4],[0.971,-1.197,5,0,"WNW",4],[0.976,-1.511,7,0,"W",1],[0.976,-1.208,4,0,"WNW",3],[0.98,-1.409,7,0,"W",1],[0.985,-0.383,6,0,"NNW",3],[0.985,-1.229,6,0,"WNW",9],[0.987,1.882,5,0,"ESE",-7],[0.992,0.697,2,0,"NE",-31],[0.993,2.32,2,0,"SE",-26],[0.996,2.343,2,0,"SE",-26],[0.998,-0.115,7,0,"N",2]]};
+var DATA={"k":["BROWNFIELD","CAA","CWA","IOP","LPST","PST","RCRA_GEN","RCRA_NLR","VCP"],"p":[[0.031,1.832,6,1,"ESE",0],[0.082,1.88,2,0,"ESE",0],[0.082,1.88,2,0,"ESE",0],[0.084,0.087,4,1,"N",3],[0.186,-1.453,4,1,"W",1],[0.195,-1.689,2,0,"W",-2],[0.208,-1.789,4,1,"WSW",-2],[0.217,-1.48,4,1,"W",-1],[0.22,0.577,0,1,"NNE",2],[0.236,-1.124,4,1,"WNW",2],[0.239,-1.217,7,1,"WNW",0],[0.264,1.835,4,1,"ESE",0],[0.271,1.259,4,1,"ENE",0],[0.274,0.237,0,1,"NNE",2],[0.294,2.549,7,0,"SE",-18],[0.3,0.267,2,0,"NNE",1],[0.32,-0.013,2,0,"N",1],[0.351,1.94,5,0,"ESE",-1],[0.354,1.96,4,1,"ESE",0],[0.355,0.467,1,0,"NNE",0],[0.361,1.001,5,0,"ENE",0],[0.363,1.009,5,0,"ENE",0],[0.363,1.008,4,1,"ENE",0],[0.367,1.145,8,1,"ENE",0],[0.381,-2.518,7,0,"SW",-13],[0.381,-2.518,1,0,"SW",-13],[0.393,-1.257,3,1,"WNW",-1],[0.394,2.345,6,0,"SE",-3],[0.395,1.431,5,0,"E",-1],[0.405,1.905,7,0,"ESE",-1],[0.407,-1.219,4,1,"WNW",-2],[0.411,-1.502,2,0,"W",-3],[0.411,-1.48,4,1,"W",-2],[0.421,1.792,4,1,"ESE",0],[0.47,1.876,5,0,"ESE",-1],[0.487,2.088,2,0,"ESE",-2],[0.505,-1.403,6,0,"W",-2],[0.515,-1.25,5,0,"WNW",0],[0.516,-1.22,6,0,"WNW",-1],[0.517,-1.25,4,0,"WNW",0],[0.528,-1.106,7,0,"WNW",3],[0.536,-1.072,7,0,"WNW",1],[0.541,-1.22,7,0,"WNW",-1],[0.578,-1.222,7,0,"WNW",-1],[0.584,-1.181,4,0,"WNW",1],[0.588,1.382,6,0,"E",-2],[0.596,-0.713,5,0,"NW",2],[0.619,-1.224,6,0,"WNW",0],[0.624,3.038,2,0,"S",2],[0.648,0.299,2,0,"NNE",0],[0.649,0.405,7,0,"NNE",-3],[0.651,-1.473,4,0,"W",-1],[0.654,0.477,2,0,"NNE",-6],[0.672,-1.206,5,0,"WNW",3],[0.676,1.904,7,0,"ESE",-4],[0.691,-1.223,7,0,"WNW",1],[0.692,-1.557,7,0,"W",-4],[0.699,-1.586,2,0,"W",-7],[0.704,-0.209,7,0,"NNW",2],[0.705,-0.85,7,0,"NW",1],[0.707,1.125,7,0,"ENE",-8],[0.716,0.778,2,0,"NE",-6],[0.716,0.778,7,0,"NE",-6],[0.716,1.875,4,0,"ESE",-3],[0.717,1.105,6,0,"ENE",-7],[0.721,0.599,7,0,"NE",-9],[0.721,0.599,1,0,"NE",-9],[0.728,-1.546,2,0,"W",2],[0.733,-0.143,2,0,"N",1],[0.734,-0.822,4,0,"NW",2],[0.736,0.364,4,0,"NNE",-1],[0.741,-0.818,5,0,"NW",2],[0.741,0.566,2,0,"NNE",-9],[0.746,-0.763,5,0,"NW",2],[0.749,-0.297,6,0,"NNW",3],[0.75,0.938,4,0,"NE",-4],[0.751,-0.771,4,0,"NW",3],[0.76,-0.166,4,0,"N",4],[0.763,0.755,7,0,"NE",-3],[0.763,0.755,2,0,"NE",-3],[0.763,0.755,6,0,"NE",-3],[0.765,1.707,7,0,"E",-6],[0.766,0.665,6,0,"NE",-9],[0.766,0.665,7,0,"NE",-9],[0.767,1.432,7,0,"E",0],[0.767,1.432,2,0,"E",0],[0.772,-1.591,7,0,"W",-5],[0.773,-0.337,7,0,"NNW",2],[0.774,1.174,4,0,"ENE",-4],[0.778,-0.384,4,0,"NNW",3],[0.779,1.013,2,0,"ENE",-6],[0.78,1.552,2,0,"E",0],[0.782,1.214,2,0,"ENE",-4],[0.784,0.935,2,0,"NE",-5],[0.784,0.935,6,0,"NE",-5],[0.788,0.896,4,0,"NE",-4],[0.79,-0.362,7,0,"NNW",2],[0.799,-1.809,5,0,"WSW",-1],[0.803,-0.359,4,0,"NNW",2],[0.803,-0.359,4,0,"NNW",2],[0.804,-0.357,5,0,"NNW",2],[0.809,-1.573,2,0,"W",-2],[0.811,0.469,2,0,"NNE",-4],[0.818,-0.933,7,0,"NW",3],[0.82,-0.385,5,0,"NNW",2],[0.821,2.238,2,0,"SE",-8],[0.827,2.861,2,0,"SSE",2],[0.836,0.797,4,0,"NE",-9],[0.841,0.344,4,0,"NNE",-2],[0.856,-0.303,5,0,"NNW",4],[0.857,0.6,6,0,"NE",-8],[0.857,0.6,2,0,"NE",-8],[0.857,-1.225,7,0,"WNW",3],[0.861,1.583,2,0,"E",-1],[0.876,0.569,6,0,"NNE",-7],[0.881,-1.544,7,0,"W",-1],[0.883,0.005,2,0,"N",-6],[0.889,0.194,6,0,"N",-17],[0.889,0.194,2,0,"N",-17],[0.889,-0.512,4,0,"NNW",3],[0.891,0.432,2,0,"NNE",-5],[0.891,0.432,2,0,"NNE",-5],[0.906,-1.534,6,0,"W",0],[0.915,0.237,2,0,"NNE",-22],[0.926,-0.804,2,0,"NW",4],[0.926,-0.804,1,0,"NW",4],[0.94,-1.5,7,0,"W",1],[0.945,0.491,2,0,"NNE",-1],[0.954,1.321,2,0,"ENE",-16],[0.956,1.935,4,0,"ESE",-11],[0.96,0.512,2,0,"NNE",-4],[0.971,-1.197,5,0,"WNW",4],[0.976,-1.511,7,0,"W",1],[0.976,-1.208,4,0,"WNW",3],[0.98,-1.409,7,0,"W",1],[0.985,-1.229,6,0,"WNW",9],[0.985,-0.383,6,0,"NNW",3],[0.987,1.882,5,0,"ESE",-7],[0.992,0.697,2,0,"NE",-31],[0.993,2.32,2,0,"SE",-26],[0.996,2.343,2,0,"SE",-26],[0.998,-0.115,7,0,"N",2]]};
 var root=document.documentElement,$=function(s){return document.querySelector(s)},$$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))};
 var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 var lowPower=(navigator.deviceMemory&&navigator.deviceMemory<=2)||(navigator.hardwareConcurrency&&navigator.hardwareConcurrency<=2);
